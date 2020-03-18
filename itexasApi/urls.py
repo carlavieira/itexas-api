@@ -1,3 +1,4 @@
+
 """itexasApi URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -14,8 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+
+from membersApi.views import MemberViewSet
+from departmentApi.views import DepartmentViewSet
+from postApi.views import PostViewSet
+from officeHours.views import OfficeHourViewSet
+
+router = routers.DefaultRouter()
+router.register(r'members', MemberViewSet)
+router.register(r'departments', DepartmentViewSet)
+router.register(r'posts', PostViewSet)
+router.register(r'officeHours', OfficeHourViewSet)
 
 urlpatterns = [
+    path('', include(router.urls)),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('admin/', admin.site.urls),
 ]
