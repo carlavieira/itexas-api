@@ -1,0 +1,33 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+asgiref = "==3.2.7"
+certifi = "*"
+chardet = "*"
+defusedxml = "*"
+django-allauth = "*"
+django-mysql = "*"
+django-rest-auth = "*"
+djangorestframework = "*"
+djangorestframework-jwt = "*"
+idna = "*"
+oauthlib = "*"
+python3-openid = "*"
+pytz = "*"
+requests = "*"
+requests-oauthlib = "*"
+six = "*"
+sqlparse = "*"
+urllib3 = "*"
+Django = "*"
+Pillow = "*"
+PyJWT = "*"
+django-cors-headers = "*"
+
+[requires]
+python_version = "3.6"
