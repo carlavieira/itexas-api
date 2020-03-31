@@ -23,6 +23,8 @@ from departmentApi.views import DepartmentViewSet
 from postApi.views import PostViewSet
 from officeHours.views import OfficeHourViewSet
 from background.views import BackgroundViewSet
+from meeting.views import MeetingViewSet
+from meeting.views import Meeting_ParticipationViewSet
 
 router = routers.DefaultRouter()
 router.register(r'members', MemberViewSet)
@@ -30,6 +32,8 @@ router.register(r'departments', DepartmentViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'officeHours', OfficeHourViewSet)
 router.register(r'background', BackgroundViewSet)
+router.register(r'meeting', MeetingViewSet)
+router.register(r'meeting_participation', Meeting_ParticipationViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
