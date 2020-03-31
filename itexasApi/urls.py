@@ -22,12 +22,14 @@ from membersApi.views import MemberViewSet
 from departmentApi.views import DepartmentViewSet
 from postApi.views import PostViewSet
 from officeHours.views import OfficeHourViewSet
+from background.views import BackgroundViewSet
 
 router = routers.DefaultRouter()
 router.register(r'members', MemberViewSet)
 router.register(r'departments', DepartmentViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'officeHours', OfficeHourViewSet)
+router.register(r'background', BackgroundViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
