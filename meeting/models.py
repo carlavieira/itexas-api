@@ -1,15 +1,15 @@
 from datetime import date
 from django.db import models
+from django.utils import timezone
 from membersApi.models import Member
-from departmentApi.models import Department
-from postApi.models import Post
 
 class Meeting(models.Model):
-    member = models.ForeignKey(Member, verbose_name='Membro', on_delete=models.CASCADE)
-    start_date = models.DateField(verbose_name='Início', default=date.today)
-    end_date = models.DateField(verbose_name='Término', default=date.today)
-    post = models.ForeignKey(Post, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Cargo')
-    department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Área')
+    MEETINGS = (('REB', 'REB'), ('RA', 'Reunião de Área'), ('RT', 'Reunião de Time'), ('LR', 'Reunião de LR'),
+                ('CN', 'Reunião de Corner'))
+    type = models.CharField(max_length=3, choices=MEETINGS, blank=True, null=True, verbose_name='Tipo da Reunião')
+    member = models.ForeignKey(Member, verbose_name='Responsável', on_delete=models.SET_NULL, null=True)
+    date = models.DateField(verbose_name='Dia', default=date.today)
+    time = models.DateTimeField(verbose_name='Hora', default=timezone.now)
 
 class Meeting_Participation(models.Model):
     member = models.ForeignKey(Member, verbose_name='Membro', on_delete=models.CASCADE)
