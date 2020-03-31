@@ -130,7 +130,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'itexasApi',
         'USER': 'root',
-        'PASSWORD': 'R1diculous@',
+        'PASSWORD': 'itsgoodtobe',
         'HOST': 'localhost',
     }
 }
