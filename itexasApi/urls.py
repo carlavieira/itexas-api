@@ -25,6 +25,8 @@ from officeHours.views import OfficeHourViewSet
 from background.views import BackgroundViewSet
 from meeting.views import MeetingViewSet
 from meeting.views import Meeting_ParticipationViewSet
+from event.views import EventViewSet
+from event.views import Event_ParticipationViewSet
 
 router = routers.DefaultRouter()
 router.register(r'members', MemberViewSet)
@@ -34,6 +36,8 @@ router.register(r'officeHours', OfficeHourViewSet)
 router.register(r'background', BackgroundViewSet)
 router.register(r'meeting', MeetingViewSet)
 router.register(r'meeting_participation', Meeting_ParticipationViewSet)
+router.register(r'event', EventViewSet)
+router.register(r'event_participation', Event_ParticipationViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

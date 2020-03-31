@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'officeHours',
     'background',
-    'meeting'
+    'meeting',
+    'event'
 ]
 
 # Sets the custom user as the login
