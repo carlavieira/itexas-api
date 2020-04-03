@@ -46,7 +46,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'officeHours'
+    'officeHours',
+    'background',
+    'meeting',
+    'event'
 ]
 
 # Sets the custom user as the login
@@ -124,8 +127,11 @@ WSGI_APPLICATION = 'itexasApi.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'itexasApi',
+        'USER': 'root',
+        'PASSWORD': 'itsgoodtobe',
+        'HOST': 'localhost',
     }
 }
 
