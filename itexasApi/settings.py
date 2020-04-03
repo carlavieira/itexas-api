@@ -46,37 +46,38 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'officeHours',
-    'background',
-    'meeting',
-    'event'
+    'officeHours'
 ]
 
 # Sets the custom user as the login
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USER_EMAIL_FIELD = 'email'
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_EMAIL_VERIFICATION = None
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 AUTH_USER_MODEL = 'membersApi.Member'
 SITE_ID = 1
-ACCOUNT_EMAIL_VERIFICATION = None
 # LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
+ACCOUNT_ADAPTER = 'membersApi.adapter.CustomAccountAdapter'
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'membersApi.serializers.MemberSerializer',
 }
 
+REST_AUTH_REGISTER_SERIALIZERS = {
+    "REGISTER_SERIALIZER": "membersApi.serializers.CustomRegisterSerializer",
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
     ),
 }
 
@@ -121,23 +122,23 @@ WSGI_APPLICATION = 'itexasApi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# configurar mysql
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'itexasApi',
-        'USER': 'root',
-        'PASSWORD': 'itsgoodtobe',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# configurar mysql
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'itexasApi',
+#         'USER': 'root',
+#         'PASSWORD': 'R1diculous@',
+#         'HOST': 'localhost',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
