@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'membersApi',
     'postApi',
     'departmentApi',
+    'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -76,6 +77,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 }
 
 REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),

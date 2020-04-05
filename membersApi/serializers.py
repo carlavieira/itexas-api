@@ -22,6 +22,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     leader = serializers.ChoiceField(leaderChoices)
     slack = serializers.CharField(required=False, max_length=50)
     phone = serializers.CharField(required=False, max_length=20)
+    nickname = serializers.CharField(required=False, max_length=30)
     photo = serializers.ImageField(required=False)
     date_joined = serializers.DateTimeField(required=False, default=timezone.now())
 
@@ -47,5 +48,5 @@ class MemberSerializer(serializers.ModelSerializer):
         model = Member
         fields = (
             'id', 'email', 'first_name', 'last_name', 'post', 'department', 'leader', 'photo', 'slack', 'phone',
-            'date_joined', 'is_active', 'is_staff')
+            'nickname', 'date_joined', 'is_active', 'is_staff')
         extra_kwargs = {'password': {'write_only': True}}

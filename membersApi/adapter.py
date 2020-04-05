@@ -12,8 +12,11 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         data = form.cleaned_data
         user.slack = data.get('slack')
         user.phone = data.get('phone')
-        user.post = Post.objects.get(id=data.get('post'))
-        user.department = Department.objects.get(id=data.get('department'))
-        user.leader = Member.objects.get(id=data.get('leader'))
+        if data.get('post') != '':
+            user.post = Post.objects.get(id=data.get('post'))
+        if data.get('department') != '':
+            user.department = Department.objects.get(id=data.get('department'))
+        if data.get('leader') != '':
+            user.leader = Member.objects.get(id=data.get('leader'))
         user.save()
         return user
