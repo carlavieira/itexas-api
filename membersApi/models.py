@@ -12,7 +12,6 @@ class Member(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
-    nickname = models.CharField('nickname', max_length=30, blank=True, null=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     post = models.ForeignKey(Post, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Cargo')
     department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Área')
@@ -20,7 +19,7 @@ class Member(AbstractUser):
     photo = models.ImageField(upload_to='uploads', blank=True)
     slack = models.CharField(max_length=50, verbose_name='@Slack')
     phone = models.CharField(max_length=20, verbose_name='Celular')
-
+    nickname = models.CharField('nickname', max_length=30, blank=True, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 

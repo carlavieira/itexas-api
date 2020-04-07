@@ -8,6 +8,7 @@ class MeetingSerializer(serializers.ModelSerializer):
         model = Meeting
         fields = '__all__'
 
+
 class Meeting_ParticipationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Meeting_Participation
