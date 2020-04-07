@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from membersApi.models import Member
 
 
@@ -8,8 +7,8 @@ class Meeting(models.Model):
                 ('CN', 'Reunião de Corner'))
     type = models.CharField(max_length=3, choices=MEETINGS, blank=True, null=True, verbose_name='Tipo da Reunião')
     member = models.ForeignKey(Member, verbose_name='Responsável', on_delete=models.SET_NULL, null=True)
-    date = models.DateTimeField(verbose_name='Dia', default=timezone.now)
-    time = models.DateTimeField(verbose_name='Hora', default=timezone.now)
+    date = models.DateField(verbose_name='Dia')
+    time = models.TimeField(verbose_name='Hora')
 
 
 class Meeting_Participation(models.Model):
