@@ -4,6 +4,7 @@ from membersApi.models import Member
 from departmentApi.models import Department
 from postApi.models import Post
 
+
 class Background(models.Model):
     member = models.ForeignKey(Member, verbose_name='Membro', on_delete=models.CASCADE)
     start_date = models.DateField(verbose_name='Início', default=date.today)

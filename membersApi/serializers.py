@@ -1,3 +1,5 @@
+from abc import ABC
+
 from django.utils import timezone
 from departmentApi.models import Department
 from postApi.models import Post
@@ -7,19 +9,18 @@ from rest_auth.registration.serializers import RegisterSerializer
 
 
 class CustomRegisterSerializer(RegisterSerializer):
-    getPosts = Post.objects.all()
-    postChoices = [(choice.id, choice.name) for choice in getPosts]
-    getDepartments = Department.objects.all()
-    departmentChoices = [(choice.id, choice.name) for choice in getDepartments]
     getLeaders = Member.objects.filter(post=2)
     leaderChoices = [(choice.id, choice.first_name) for choice in getLeaders]
     email = serializers.EmailField(required=True)
     password1 = serializers.CharField(write_only=True)
     first_name = serializers.CharField(max_length=30)
     last_name = serializers.CharField(max_length=100)
-    post = serializers.ChoiceField(postChoices, required=False)
-    department = serializers.ChoiceField(departmentChoices, required=False)
-    leader = serializers.ChoiceField(leaderChoices, required=False)
+    post = serializers.SlugRelatedField(
+        required=False, many=False, read_only=False, slug_field='name', queryset=Post.objects.all())
+    department = serializers.SlugRelatedField(
+        required=False, many=False, read_only=False, slug_field='name', queryset=Department.objects.all())
+    leader = serializers.SlugRelatedField(
+        required=False, many=False, read_only=False, slug_field='first_name', queryset=Member.objects.filter(post=2))
     slack = serializers.CharField(required=False, max_length=50)
     phone = serializers.CharField(required=False, max_length=20)
     nickname = serializers.CharField(required=False, max_length=30)
@@ -44,6 +45,27 @@ class CustomRegisterSerializer(RegisterSerializer):
 
 
 class MemberSerializer(serializers.ModelSerializer):
+    post = serializers.SlugRelatedField(
+        many=False,
+        read_only=False,
+        slug_field='name',
+        queryset=Post.objects.all(),
+    )
+    department = serializers.SlugRelatedField(
+        required=False,
+        many=False,
+        read_only=False,
+        slug_field='name',
+        queryset=Department.objects.all()
+    )
+    leader = serializers.SlugRelatedField(
+        required=False,
+        many=False,
+        read_only=False,
+        slug_field='first_name',
+        queryset=Member.objects.filter(post=2)
+    )
+
     class Meta:
         model = Member
         fields = (
