@@ -10,11 +10,16 @@ class EventSerializer(serializers.ModelSerializer):
         read_only=False,
         slug_field='first_name',
         queryset=Member.objects.all(),
+        required=False,
+        allow_null=True
     )
+
+    # date = serializers.DateField(format="%d-%m-%Y")
+    # time = serializers.TimeField(format="%H:%M")
 
     class Meta:
         model = Event
-        fields = ('type', 'member', 'date', 'time')
+        fields = ('id', 'type', 'member', 'date', 'time')
 
 
 class Event_ParticipationSerializer(serializers.ModelSerializer):
