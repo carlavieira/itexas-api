@@ -5,8 +5,13 @@ from .models import Meeting_Participation
 
 
 class MeetingSerializer(serializers.ModelSerializer):
-    member = serializers.SlugRelatedField(many=False, read_only=False, slug_field='first_name',
+    member = serializers.SlugRelatedField(many=False,
+                                          read_only=False,
+                                          slug_field='first_name',
                                           queryset=Member.objects.all())
+
+    # date = serializers.DateField(format="%d/%m/%Y")
+    # time = serializers.TimeField(format="%H:%M")
 
     class Meta:
         model = Meeting
