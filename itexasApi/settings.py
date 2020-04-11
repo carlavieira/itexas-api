@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'corsheaders',
     'membersApi',
-    'postApi',
-    'departmentApi',
+    'postsApi',
+    'departmentsApi',
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
@@ -47,19 +47,19 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'officeHours',
-    'background',
-    'meeting',
-    'event'
+    'officeHoursApi',
+    'backgroundsApi',
+    'meetingsApi',
+    'eventsApi'
 ]
 
 # Sets the custom user as the login
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'templates'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_USER_EMAIL_FIELD = 'email'
+ACCOUNT_USER_EMAIL_FIELD = 'templates'
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_VERIFICATION = None
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
@@ -138,10 +138,10 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'itexasApi',
-#         'USER': 'root',
-#         'PASSWORD': 'R1diculous@',
-#         'HOST': 'localhost',
+#         'NAME': 'itexas$itexasApi',
+#         'USER': 'itexas',
+#         'PASSWORD': 'f4e127cb6610d18',
+#         'HOST': 'itexas.mysql.pythonanywhere-services.com',
 #     }
 # }
 
@@ -169,7 +169,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -182,3 +182,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "itexas.pythonanywhere.com")

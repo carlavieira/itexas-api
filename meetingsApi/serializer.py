@@ -5,8 +5,10 @@ from .models import Meeting_Participation
 
 
 class MeetingSerializer(serializers.ModelSerializer):
-    member = serializers.SlugRelatedField(many=False, read_only=False, slug_field='first_name',
-                                          queryset=Member.objects.all())
+    member = serializers.PrimaryKeyRelatedField(many=False,
+                                                read_only=False,
+                                                # slug_field='first_name',
+                                                queryset=Member.objects.all())
 
     class Meta:
         model = Meeting
@@ -14,6 +16,9 @@ class MeetingSerializer(serializers.ModelSerializer):
 
 
 class Meeting_ParticipationSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Meeting_Participation
-        fields = '__all__'
+        fields = ['id', 'meeting', 'member', 'attendance', 'url']
+        unique_together = ('member', 'meeting')
+

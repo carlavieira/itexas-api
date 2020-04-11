@@ -14,8 +14,8 @@ class EventSerializer(serializers.ModelSerializer):
         allow_null=True
     )
 
-    # date = serializers.DateField(format="%d-%m-%Y")
-    # time = serializers.TimeField(format="%H:%M")
+    date = serializers.DateField(format="%d/%m/%Y")
+    time = serializers.TimeField(format="%H:%M")
 
     class Meta:
         model = Event

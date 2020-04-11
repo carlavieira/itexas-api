@@ -9,6 +9,8 @@ class MeetingViewSet(viewsets.ModelViewSet):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
 
+
 class Meeting_ParticipationViewSet(viewsets.ModelViewSet):
     queryset = Meeting_Participation.objects.all()
     serializer_class = Meeting_ParticipationSerializer
+

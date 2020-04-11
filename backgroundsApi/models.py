@@ -1,8 +1,8 @@
 from datetime import date
 from django.db import models
 from membersApi.models import Member
-from departmentApi.models import Department
-from postApi.models import Post
+from departmentsApi.models import Department
+from postsApi.models import Post
 
 
 class Background(models.Model):

@@ -14,29 +14,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path, re_path
 from rest_framework import routers
 
 from membersApi.views import MemberViewSet
-from departmentApi.views import DepartmentViewSet
-from postApi.views import PostViewSet
-from officeHours.views import OfficeHourViewSet
-from background.views import BackgroundViewSet
-from meeting.views import MeetingViewSet
-from meeting.views import Meeting_ParticipationViewSet
-from event.views import EventViewSet
-from event.views import Event_ParticipationViewSet
+from departmentsApi.views import DepartmentViewSet
+from postsApi.views import PostViewSet
+from officeHoursApi.views import OfficeHourViewSet
+from backgroundsApi.views import BackgroundViewSet
+from meetingsApi.views import MeetingViewSet
+from meetingsApi.views import Meeting_ParticipationViewSet
+from eventsApi.views import EventViewSet
+from eventsApi.views import Event_ParticipationViewSet
 
 router = routers.DefaultRouter()
 router.register(r'members', MemberViewSet)
 router.register(r'departments', DepartmentViewSet)
 router.register(r'posts', PostViewSet)
-router.register(r'officeHours', OfficeHourViewSet)
-router.register(r'background', BackgroundViewSet)
-router.register(r'meeting', MeetingViewSet)
+router.register(r'officeHoursApi', OfficeHourViewSet)
+router.register(r'backgroundsApi', BackgroundViewSet)
+router.register(r'meetingsApi', MeetingViewSet)
 router.register(r'meeting_participation', Meeting_ParticipationViewSet)
-router.register(r'event', EventViewSet)
+router.register(r'eventsApi', EventViewSet)
 router.register(r'event_participation', Event_ParticipationViewSet)
 
 urlpatterns = [
@@ -44,4 +46,4 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

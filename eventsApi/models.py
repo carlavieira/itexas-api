@@ -4,8 +4,8 @@ from django.utils import timezone
 from membersApi.models import Member
 
 class Event(models.Model):
-    EVENTS = (('Reunião Geral', 'Reunião Geral'), ('Assembléia', 'Assembléia'), ('Conferência', 'Conferência'),
-              ('Outros', 'Outros'))
+    EVENTS = (('RG', 'Reunião Geral'), ('AS', 'Assembléia'), ('CF', 'Conferência'),
+              ('OU', 'Outros'))
     type = models.CharField(max_length=30, choices=EVENTS, blank=True, null=True, verbose_name='Tipo do Evento')
     member = models.ForeignKey(Member, verbose_name='Responsável', on_delete=models.SET_NULL, null=True)
     date = models.DateField(verbose_name='Dia', default=date.today)

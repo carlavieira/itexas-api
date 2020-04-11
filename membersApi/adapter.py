@@ -1,8 +1,8 @@
 from allauth.account.adapter import DefaultAccountAdapter
 
-from departmentApi.models import Department
+from departmentsApi.models import Department
 from membersApi.models import Member
-from postApi.models import Post
+from postsApi.models import Post
 
 
 class CustomAccountAdapter(DefaultAccountAdapter):
@@ -12,11 +12,12 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         data = form.cleaned_data
         user.slack = data.get('slack')
         user.phone = data.get('phone')
+        user.nickname = data.get('nickname')
         if data.get('post') != '':
-            user.post = Post.objects.get(id=data.get('post'))
+            user.post = data.get('post')
         if data.get('department') != '':
-            user.department = Department.objects.get(id=data.get('department'))
+            user.department = data.get('department')
         if data.get('leader') != '':
-            user.leader = Member.objects.get(id=data.get('leader'))
+            user.leader = data.get('leader')
         user.save()
         return user
