@@ -73,6 +73,6 @@ class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = (
-            'id', 'templates', 'first_name', 'last_name', 'post', 'department', 'leader', 'photo', 'slack', 'phone',
+            'id', 'email', 'first_name', 'last_name', 'post', 'department', 'leader', 'photo', 'slack', 'phone',
             'nickname', 'date_joined', 'is_active', 'is_staff')
         extra_kwargs = {'password': {'write_only': True}}
