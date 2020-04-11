@@ -15,6 +15,7 @@ class CustomRegisterSerializer(RegisterSerializer):
 
     email = serializers.EmailField(required=True)
     password1 = serializers.CharField(write_only=True)
+    password2 = serializers.CharField(required=False)
     first_name = serializers.CharField(max_length=30)
     last_name = serializers.CharField(max_length=100)
     post = serializers.PrimaryKeyRelatedField(
@@ -72,6 +73,6 @@ class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = (
-            'id', 'email', 'first_name', 'last_name', 'post', 'department', 'leader', 'photo', 'slack', 'phone',
+            'id', 'templates', 'first_name', 'last_name', 'post', 'department', 'leader', 'photo', 'slack', 'phone',
             'nickname', 'date_joined', 'is_active', 'is_staff')
         extra_kwargs = {'password': {'write_only': True}}
