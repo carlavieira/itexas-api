@@ -6,7 +6,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
+import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,7 +22,7 @@ SECRET_KEY = '#b4r2cs7syebmb!1%kkr8e13(f@h_6&@s=q^r%4!so!+=-5m%@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,6 +88,9 @@ REST_FRAMEWORK = {
 }
 
 REST_USE_JWT = True
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=360000),
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -136,13 +139,14 @@ DATABASES = {
 }
 
 # configurar mysql
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'itexasApi',
-#         'USER': 'root',
-#         'PASSWORD': 'R1diculous@',
-#         'HOST': 'localhost',
+#         'NAME': 'itexas$itexasApi',
+#         'USER': 'itexas',
+#         'PASSWORD': 'f4e127cb6610d18',
+#         'HOST': 'itexas.mysql.pythonanywhere-services.com',
 #     }
 # }
 
@@ -170,7 +174,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -183,3 +187,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'itexas.pythonanywhere.com')
