@@ -27,7 +27,7 @@ def updateMeetingParticipationCriteria(instance, **kwargs):
     ).get()
 
     all_events: int = Event.objects.filter(
-        event__date__month=instance.event.date.month
+        date__month=instance.event.date.month
     ).count()
 
     all_attended_events: int = Event_Participation.objects.filter(
