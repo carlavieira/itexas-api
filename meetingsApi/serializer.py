@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from membersApi.models import Member
 from .models import Meeting
 from .models import Meeting_Participation

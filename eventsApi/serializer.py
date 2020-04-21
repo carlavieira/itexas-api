@@ -8,6 +8,7 @@ class EventSerializer(serializers.ModelSerializer):
         model = Event
         fields = '__all__'
 
+
 class Event_ParticipationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event_Participation

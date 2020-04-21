@@ -49,5 +49,3 @@ def updateMeetingParticipationCriteria(instance, **kwargs):
     print('Porcentagem: ' + str(criteria_to_update.meetingsCriteria))
     criteria_to_update.save()
 
-
-
