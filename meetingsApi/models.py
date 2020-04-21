@@ -1,16 +1,20 @@
 from django.db import models
-from django.db.models.signals import post_save
-
 from membersApi.models import Member
+from membershipCriteria.models import MembershipCriteria
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Meeting(models.Model):
-    MEETINGS = (('REB', 'REB'), ('RA', 'Reunião de Área'), ('RT', 'Reunião de Time'),
-                ('LR', 'Reunião de LR'), ('RC', 'Reunião de Corner'))
-    type = models.CharField(max_length=30, choices=MEETINGS, blank=True, null=True, verbose_name='Tipo da Reunião')
-    member = models.ForeignKey(Member, verbose_name='Responsável', on_delete=models.SET_NULL, null=True, blank=True)
+    MEETINGS = (('REB', 'REB'), ('RA', 'Reunião de Área'), ('RT', 'Reunião de Time'), ('LR', 'Reunião de LR'),
+                ('CN', 'Reunião de Corner'))
+    type = models.CharField(max_length=3, choices=MEETINGS, blank=True, null=True, verbose_name='Tipo da Reunião')
+    member = models.ForeignKey(Member, verbose_name='Responsável', on_delete=models.SET_NULL, null=True)
     date = models.DateField(verbose_name='Dia')
     time = models.TimeField(verbose_name='Hora')
+
+    def __str__(self):
+        return self.type + ' ' + str(self.date) + ' ' + str(self.time)
 
 
 class Meeting_Participation(models.Model):
@@ -19,13 +23,29 @@ class Meeting_Participation(models.Model):
     attendance = models.BooleanField(default=False, verbose_name='Presença')
 
 
-def meetingParticipationInitiation(instance, **kwargs):
-    members = Member.objects.filter(leader=instance.member)
-    for member in members:
-        m = Meeting_Participation.objects.create(member_id=member.id, meeting_id=instance.id)
-        m.save()
+@receiver(post_save, sender=Meeting_Participation)
+def updateMeetingParticipationCriteria(instance, **kwargs):
 
-#  post_save.connect(updateOfficeHourDuration, sender=Meeting)
+    criteria_to_update = MembershipCriteria.objects.filter(
+        member_id=instance.member.id,
+        firstDay_month__month=instance.meeting.date.month
+    ).get()
 
+    all_meetings = Meeting_Participation.objects.filter(
+        member_id=instance.member.id,
+        meeting__date__month=instance.meeting.date.month
+    ).count()
 
-post_save.connect(meetingParticipationInitiation, sender=Meeting)
+    all_attended_meetings = Meeting_Participation.objects.filter(
+        member_id=instance.member.id,
+        meeting__date__month=instance.meeting.date.month,
+        attendance=True
+    ).count()
+
+    criteria_to_update.meetingsCriteria = (all_attended_meetings/all_meetings)*100
+
+    print('Todas as reuniões: ' + str(all_meetings))
+    print('Todas as meetings participadas: ' + str(all_attended_meetings))
+    print('Porcentagem: ' + str(criteria_to_update.meetingsCriteria))
+    criteria_to_update.save()
+

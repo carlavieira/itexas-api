@@ -29,6 +29,7 @@ from meetingsApi.views import MeetingViewSet
 from meetingsApi.views import Meeting_ParticipationViewSet
 from eventsApi.views import EventViewSet
 from eventsApi.views import Event_ParticipationViewSet
+from membershipCriteria.views import MembershipCriteriaViewSet
 
 router = routers.DefaultRouter()
 router.register(r'members', MemberViewSet)
@@ -40,6 +41,7 @@ router.register(r'meetingsApi', MeetingViewSet)
 router.register(r'meeting_participation', Meeting_ParticipationViewSet)
 router.register(r'eventsApi', EventViewSet)
 router.register(r'event_participation', Event_ParticipationViewSet)
+router.register(r'membershipCriteria', MembershipCriteriaViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

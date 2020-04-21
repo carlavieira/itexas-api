@@ -50,6 +50,7 @@ class CustomRegisterSerializer(RegisterSerializer):
 
 class MemberSerializer(serializers.ModelSerializer):
     post = serializers.SlugRelatedField(
+        required=False,
         many=False,
         read_only=False,
         slug_field='name',
@@ -69,6 +70,7 @@ class MemberSerializer(serializers.ModelSerializer):
         slug_field='first_name',
         queryset=Member.objects.filter(post=2)
     )
+    photo = serializers.ImageField(allow_null=True, required=False)
 
     class Meta:
         model = Member

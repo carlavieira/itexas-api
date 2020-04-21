@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'officeHoursApi',
     'backgroundsApi',
     'meetingsApi',
-    'eventsApi'
+    'eventsApi',
+    'membershipCriteria'
 ]
 
 # Sets the custom user as the login
