@@ -17,4 +17,4 @@ class Meeting_ParticipationViewSet(viewsets.ModelViewSet):
     queryset = Meeting_Participation.objects.all()
     serializer_class = Meeting_ParticipationSerializer
     filter_backends = [DjangoFilterBackend]
-    filter_fields = ('meeting', 'member')
+    filter_fields = ('meetingsApi', 'member')

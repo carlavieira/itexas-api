@@ -47,10 +47,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'officeHours',
-    'background',
-    'meeting',
-    'event',
+    'officeHoursApi',
+    'backgroundsApi',
+    'meetingsApi',
+    'eventsApi',
     'membershipCriteria'
 ]
 

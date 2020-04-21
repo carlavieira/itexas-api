@@ -12,7 +12,7 @@ class MeetingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meeting
-        fields = ('type', 'member', 'date', 'time')
+        fields = ('id', 'type', 'member', 'date', 'time', 'url')
 
 
 class Meeting_ParticipationSerializer(serializers.ModelSerializer):
@@ -26,5 +26,5 @@ class Meeting_ParticipationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meeting_Participation
-        fields = ['id', 'meeting', 'member', 'attendance', 'url']
-        unique_together = ('member', 'meeting')
+        fields = ['id', 'meetingsApi', 'member', 'attendance', 'url']
+        unique_together = ('member', 'meetingsApi')
