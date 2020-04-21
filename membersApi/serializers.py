@@ -1,25 +1,29 @@
 from django.utils import timezone
-from departmentApi.models import Department
-from postApi.models import Post
+from departmentsApi.models import Department
+from postsApi.models import Post
 from .models import Member
 from rest_framework import serializers
 from rest_auth.registration.serializers import RegisterSerializer
 
 
 class CustomRegisterSerializer(RegisterSerializer):
-    getPosts = Post.objects.all()
-    postChoices = [(choice.id, choice.name) for choice in getPosts]
-    getDepartments = Department.objects.all()
-    departmentChoices = [(choice.id, choice.name) for choice in getDepartments]
-    getLeaders = Member.objects.filter(post=2)
-    leaderChoices = [(choice.id, choice.first_name) for choice in getLeaders]
+    def update(self, instance, validated_data):
+        super(CustomRegisterSerializer, self).update(instance, validated_data)
+
+    def create(self, validated_data):
+        super(CustomRegisterSerializer, self).create(validated_data)
+
     email = serializers.EmailField(required=True)
     password1 = serializers.CharField(write_only=True)
+    password2 = serializers.CharField(required=False)
     first_name = serializers.CharField(max_length=30)
     last_name = serializers.CharField(max_length=100)
-    post = serializers.ChoiceField(postChoices, required=False)
-    department = serializers.ChoiceField(departmentChoices, required=False)
-    leader = serializers.ChoiceField(leaderChoices, required=False)
+    post = serializers.PrimaryKeyRelatedField(
+        required=False, many=False, read_only=False, queryset=Post.objects.all())
+    department = serializers.PrimaryKeyRelatedField(
+        required=False, many=False, read_only=False, queryset=Department.objects.all())
+    leader = serializers.PrimaryKeyRelatedField(
+        required=False, many=False, read_only=False, queryset=Member.objects.filter(post=2))
     slack = serializers.CharField(required=False, max_length=50)
     phone = serializers.CharField(required=False, max_length=20)
     nickname = serializers.CharField(required=False, max_length=30)
@@ -39,11 +43,35 @@ class CustomRegisterSerializer(RegisterSerializer):
             'post': self.validated_data.get('post', ''),
             'department': self.validated_data.get('department', ''),
             'leader': self.validated_data.get('leader', ''),
+            'nickname': self.validated_data.get('nickname', ''),
             'date_joined': self.validated_data.get('date_joined', ''),
         }
 
 
 class MemberSerializer(serializers.ModelSerializer):
+    post = serializers.SlugRelatedField(
+        required=False,
+        many=False,
+        read_only=False,
+        slug_field='name',
+        queryset=Post.objects.all().filter(),
+    )
+    department = serializers.SlugRelatedField(
+        required=False,
+        many=False,
+        read_only=False,
+        slug_field='name',
+        queryset=Department.objects.all()
+    )
+    leader = serializers.SlugRelatedField(
+        required=False,
+        many=False,
+        read_only=False,
+        slug_field='first_name',
+        queryset=Member.objects.filter(post=2)
+    )
+    photo = serializers.ImageField(allow_null=True, required=False)
+
     class Meta:
         model = Member
         fields = (

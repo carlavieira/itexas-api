@@ -19,8 +19,8 @@ from django.urls import path, include
 from rest_framework import routers
 
 from membersApi.views import MemberViewSet
-from departmentApi.views import DepartmentViewSet
-from postApi.views import PostViewSet
+from departmentsApi.views import DepartmentViewSet
+from postsApi.views import PostViewSet
 from officeHours.views import OfficeHourViewSet
 from background.views import BackgroundViewSet
 from meeting.views import MeetingViewSet
