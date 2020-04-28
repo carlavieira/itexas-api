@@ -25,5 +25,5 @@ class Meeting_ParticipationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meeting_Participation
-        fields = ['id', 'meetingsApi', 'member', 'attendance', 'url']
-        unique_together = ('member', 'meetingsApi')
+        fields = ['id', 'meeting', 'member', 'attendance', 'url']
+        unique_together = ('member', 'meeting')

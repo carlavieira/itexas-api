@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from membersApi.models import Member
 from membershipCriteria.models import MembershipCriteria
@@ -26,10 +27,14 @@ class Meeting_Participation(models.Model):
 @receiver(post_save, sender=Meeting_Participation)
 def updateMeetingParticipationCriteria(instance, **kwargs):
 
-    criteria_to_update = MembershipCriteria.objects.filter(
-        member_id=instance.member.id,
-        firstDay_month__month=instance.meeting.date.month
-    ).get()
+    try:
+        criteria_to_update = MembershipCriteria.objects.filter(
+            member_id=instance.member.id,
+            dayMonth__month=instance.meeting.date.month
+        ).get()
+    except ObjectDoesNotExist:
+        criteria_to_update = MembershipCriteria(member=instance.member, dayMonth=instance.meeting.date,
+                                                officeHoursCriteria=0, meetingsCriteria=0, eventsCriteria=0)
 
     all_meetings = Meeting_Participation.objects.filter(
         member_id=instance.member.id,
