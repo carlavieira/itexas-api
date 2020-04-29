@@ -29,6 +29,7 @@ Pillow = "*"
 PyJWT = "*"
 django-cors-headers = "*"
 django-filter = "*"
+drf-writable-nested = "*"
 
 [requires]
 python_version = "3.6"

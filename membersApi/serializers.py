@@ -1,9 +1,12 @@
 from django.utils import timezone
 from departmentsApi.models import Department
+from departmentsApi.serializer import DepartmentSerializer
 from postsApi.models import Post
+from postsApi.serializer import PostSerializer
 from .models import Member
 from rest_framework import serializers
 from rest_auth.registration.serializers import RegisterSerializer
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -48,27 +51,22 @@ class CustomRegisterSerializer(RegisterSerializer):
         }
 
 
-class MemberSerializer(serializers.ModelSerializer):
-    post = serializers.SlugRelatedField(
-        required=False,
-        many=False,
-        read_only=False,
-        slug_field='name',
-        queryset=Post.objects.all().filter(),
-    )
-    department = serializers.SlugRelatedField(
-        required=False,
-        many=False,
-        read_only=False,
-        slug_field='name',
-        queryset=Department.objects.all()
-    )
+class MemberSerializer(WritableNestedModelSerializer):
+    # post = serializers.SlugRelatedField(
+    #     required=False,
+    #     many=False,
+    #     read_only=False,
+    #     slug_field='name',
+    #     queryset=Post.objects.all().filter(),
+    # )
+    post = PostSerializer(allow_null=True)
+    department = DepartmentSerializer(allow_null=True)
     leader = serializers.SlugRelatedField(
         required=False,
         many=False,
         read_only=False,
         slug_field='first_name',
-        queryset=Member.objects.filter(post=2)
+        queryset=Member.objects.all()
     )
     photo = serializers.ImageField(allow_null=True, required=False)
 

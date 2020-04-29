@@ -7,7 +7,7 @@ from membersApi.models import Member
 
 
 class MembershipCriteria(models.Model):
-    member = models.ForeignKey(Member, verbose_name='Membro', on_delete=models.CASCADE)
+    member = models.ForeignKey(Member, verbose_name='Membro', on_delete=models.CASCADE, default=None)
     dayMonth = models.DateField(verbose_name='Dia do mês', default=date.today)
     officeHoursCriteria = models.DecimalField(verbose_name='Critério de Office Hour', max_digits=5, decimal_places=2)
     meetingsCriteria = models.DecimalField(verbose_name='Critério de Reuniões', max_digits=5, decimal_places=2)
