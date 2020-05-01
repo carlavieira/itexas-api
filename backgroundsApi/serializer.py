@@ -6,3 +6,4 @@ class BackgroundSerializer(serializers.ModelSerializer):
     class Meta:
         model = Background
         fields = '__all__'
+        depth = 9

@@ -30,6 +30,7 @@ PyJWT = "*"
 django-cors-headers = "*"
 django-filter = "*"
 drf-writable-nested = "*"
+djangorestframework-serializer-extensions = "*"
 
 [requires]
 python_version = "3.6"

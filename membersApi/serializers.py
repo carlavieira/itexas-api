@@ -1,12 +1,10 @@
 from django.utils import timezone
+from rest_framework.serializers import ModelSerializer
 from departmentsApi.models import Department
-from departmentsApi.serializer import DepartmentSerializer
 from postsApi.models import Post
-from postsApi.serializer import PostSerializer
 from .models import Member
 from rest_framework import serializers
 from rest_auth.registration.serializers import RegisterSerializer
-from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -26,7 +24,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     department = serializers.PrimaryKeyRelatedField(
         required=False, many=False, read_only=False, queryset=Department.objects.all())
     leader = serializers.PrimaryKeyRelatedField(
-        required=False, many=False, read_only=False, queryset=Member.objects.filter(post=2))
+        required=False, many=False, read_only=False, queryset=Member.objects.all())
     slack = serializers.CharField(required=False, max_length=50)
     phone = serializers.CharField(required=False, max_length=20)
     nickname = serializers.CharField(required=False, max_length=30)
@@ -51,28 +49,27 @@ class CustomRegisterSerializer(RegisterSerializer):
         }
 
 
-class MemberSerializer(WritableNestedModelSerializer):
-    # post = serializers.SlugRelatedField(
-    #     required=False,
-    #     many=False,
-    #     read_only=False,
-    #     slug_field='name',
-    #     queryset=Post.objects.all().filter(),
-    # )
-    post = PostSerializer(allow_null=True)
-    department = DepartmentSerializer(allow_null=True)
-    leader = serializers.SlugRelatedField(
-        required=False,
-        many=False,
-        read_only=False,
-        slug_field='first_name',
-        queryset=Member.objects.all()
-    )
+class MemberSerializer(ModelSerializer):
+    class Meta:
+        model = Member
+        fields = (
+            'id', 'email', 'first_name', 'last_name', 'post', 'department', 'leader', 'photo', 'slack', 'phone',
+            'nickname', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
+        depth = 9
+
+
+class UpdateMemberSerializer(ModelSerializer):
+    post = serializers.PrimaryKeyRelatedField(required=False, many=False,
+                                              read_only=False, queryset=Post.objects.all())
+    department = serializers.PrimaryKeyRelatedField(required=False, many=False,
+                                                    read_only=False,queryset=Department.objects.all())
+    leader = serializers.PrimaryKeyRelatedField(required=False,many=False,
+                                                read_only=False, queryset=Member.objects.all())
     photo = serializers.ImageField(allow_null=True, required=False)
 
     class Meta:
         model = Member
         fields = (
             'id', 'email', 'first_name', 'last_name', 'post', 'department', 'leader', 'photo', 'slack', 'phone',
-            'nickname', 'date_joined', 'is_active', 'is_staff')
+            'nickname', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
         extra_kwargs = {'password': {'write_only': True}}

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "39d610dc7121de7559c467000b62256562c1552d65cc852ff090487f3a81b2d6"
+            "sha256": "e52d4a6aca1a2624d68657cb3629958ce7a9b6fe71d942758edc849c8cb15bda"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -110,6 +110,14 @@
             "index": "pypi",
             "version": "==1.11.0"
         },
+        "djangorestframework-serializer-extensions": {
+            "hashes": [
+                "sha256:12beb9ba99718906dbd4303299b627143041dbe8f68fdf608e3b69510465d39b",
+                "sha256:23f345e4a57788f6a18af2c106758b5d7ad9495f3d83d589697b2e97073cecb1"
+            ],
+            "index": "pypi",
+            "version": "==2.0.0"
+        },
         "drf-writable-nested": {
             "hashes": [
                 "sha256:4ad864d91003f8cce56f22bc2b4fa9aa0d2e57b05b5cc5c44c8bde6e40c5cf9f",
@@ -117,6 +125,12 @@
             ],
             "index": "pypi",
             "version": "==0.6.0"
+        },
+        "hashids": {
+            "hashes": [
+                "sha256:6539b892a426e75747a9c0ad69409e9566f9c21b79310fc3424b5b6726f28da6"
+            ],
+            "version": "==1.2.0"
         },
         "idna": {
             "hashes": [

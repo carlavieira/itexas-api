@@ -2,19 +2,32 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from .models import Meeting
 from .models import Meeting_Participation
-from .serializer import MeetingSerializer
-from .serializer import Meeting_ParticipationSerializer
+from .serializer import ListMeetingsSerializer, ListMeetingParticipationSerializer
+from .serializer import ManageMeetingParticipationSerializer, ManageMeetingSerializer
 
 
-class MeetingViewSet(viewsets.ModelViewSet):
+class ListMeetingViewSet(viewsets.ModelViewSet):
     queryset = Meeting.objects.all()
-    serializer_class = MeetingSerializer
+    serializer_class = ListMeetingsSerializer
     filter_backends = [DjangoFilterBackend]
     filter_fields = ('member',)
 
 
-class Meeting_ParticipationViewSet(viewsets.ModelViewSet):
+class ManageMeetingViewSet(viewsets.ModelViewSet):
+    queryset = Meeting.objects.all()
+    serializer_class = ManageMeetingSerializer
+
+
+class ListMeetingParticipationViewSet(viewsets.ModelViewSet):
     queryset = Meeting_Participation.objects.all()
-    serializer_class = Meeting_ParticipationSerializer
+    serializer_class = ListMeetingParticipationSerializer
     filter_backends = [DjangoFilterBackend]
     filter_fields = ('meeting', 'member')
+
+
+class ManageMeetingParticipationViewSet(viewsets.ModelViewSet):
+    queryset = Meeting_Participation.objects.all()
+    serializer_class = ManageMeetingParticipationSerializer
+
+
+
