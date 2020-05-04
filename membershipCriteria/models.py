@@ -23,7 +23,7 @@ def updateStatus(instance, **kwargs):
         post_save.disconnect(updateStatus, sender=MembershipCriteria)
         instance.save()
 
-    if instance.officeHoursCriteria >= 100 and instance.meetingsCriteria >= 75 and instance.eventsCriteria >= 50:
+    if instance.officeHoursCriteria >= 80 and instance.meetingsCriteria >= 75 and instance.eventsCriteria >= 50:
         print('Entrou na condição de ideal')
         instance.status = "IDEAL"
         post_save.disconnect(updateStatus, sender=MembershipCriteria)
