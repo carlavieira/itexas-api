@@ -12,6 +12,7 @@ class Event(models.Model):
     member = models.ForeignKey(Member, verbose_name='Responsável', on_delete=models.SET_NULL, null=True)
     date = models.DateField(verbose_name='Dia')
     time = models.TimeField(verbose_name='Hora')
+    engagement = models.DecimalField(verbose_name='Engajamento', max_digits=5, decimal_places=2, default=0)
 
 
 class Event_Participation(models.Model):
@@ -22,7 +23,6 @@ class Event_Participation(models.Model):
 
 @receiver(post_save, sender=Event_Participation)
 def updateEventParticipationCriteria(instance, **kwargs):
-
     try:
         criteria_to_update: MembershipCriteria = MembershipCriteria.objects.filter(
             member_id=instance.member.id,
@@ -49,3 +49,21 @@ def updateEventParticipationCriteria(instance, **kwargs):
     print('Porcentagem: ' + str(criteria_to_update.eventsCriteria))
     criteria_to_update.save()
 
+@receiver(post_save, sender=Event_Participation)
+def updateEngagement(instance, **kwargs):
+    event_to_update: Event = Event.objects.filter(id=instance.event_id).get();
+    present: int = Event_Participation.objects.filter(
+        event=event_to_update, attendance=True
+    ).count()
+    total: int = Event_Participation.objects.filter(
+        event=event_to_update
+    ).count()
+    event_to_update.engagement = (present / total) * 100
+    event_to_update.save()
+
+
+@receiver(post_save, sender=Event)
+def create_participation(sender, instance, created, **kwargs):
+    if created:
+        for member in Member.objects.all().filter(is_active=True):
+            Event_Participation.objects.create(member=member, event=instance, attendance=False);

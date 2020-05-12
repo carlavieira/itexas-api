@@ -17,13 +17,12 @@ class MembershipCriteria(models.Model):
 
 @receiver(post_save, sender=MembershipCriteria)
 def updateStatus(instance, **kwargs):
-    if instance.officeHoursCriteria < 100 or instance.meetingsCriteria < 75 or instance.eventsCriteria < 50:
+    if instance.officeHoursCriteria < 80 or instance.meetingsCriteria < 75 or instance.eventsCriteria < 50:
         print('Entrou na condição de risco')
         instance.status = "RISCO"
         post_save.disconnect(updateStatus, sender=MembershipCriteria)
         instance.save()
-
-    if instance.officeHoursCriteria >= 100 and instance.meetingsCriteria >= 75 and instance.eventsCriteria >= 50:
+    else:
         print('Entrou na condição de ideal')
         instance.status = "IDEAL"
         post_save.disconnect(updateStatus, sender=MembershipCriteria)

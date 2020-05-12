@@ -64,7 +64,7 @@ def updateOfficeHourDuration(instance, **kwargs):
         criteria_to_update.officeHoursCriteria = 100
         criteria_to_update.save()
     else:
-        criteria_to_update.officeHoursCriteria = (all_office_hours.seconds / 720) * 100
+        criteria_to_update.officeHoursCriteria = (all_office_hours.seconds / 72000) * 100
         criteria_to_update.save()
 
 
