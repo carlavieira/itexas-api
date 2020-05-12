@@ -1,4 +1,5 @@
 from django.utils import timezone
+from rest_framework.serializers import ModelSerializer
 from departmentsApi.models import Department
 from postsApi.models import Post
 from .models import Member
@@ -23,7 +24,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     department = serializers.PrimaryKeyRelatedField(
         required=False, many=False, read_only=False, queryset=Department.objects.all())
     leader = serializers.PrimaryKeyRelatedField(
-        required=False, many=False, read_only=False, queryset=Member.objects.filter(post=2))
+        required=False, many=False, read_only=False, queryset=Member.objects.all())
     slack = serializers.CharField(required=False, max_length=50)
     phone = serializers.CharField(required=False, max_length=20)
     nickname = serializers.CharField(required=False, max_length=30)
@@ -48,33 +49,27 @@ class CustomRegisterSerializer(RegisterSerializer):
         }
 
 
-class MemberSerializer(serializers.ModelSerializer):
-    post = serializers.SlugRelatedField(
-        required=False,
-        many=False,
-        read_only=False,
-        slug_field='name',
-        queryset=Post.objects.all().filter(),
-    )
-    department = serializers.SlugRelatedField(
-        required=False,
-        many=False,
-        read_only=False,
-        slug_field='name',
-        queryset=Department.objects.all()
-    )
-    leader = serializers.SlugRelatedField(
-        required=False,
-        many=False,
-        read_only=False,
-        slug_field='first_name',
-        queryset=Member.objects.filter(post=2)
-    )
+class MemberSerializer(ModelSerializer):
+    class Meta:
+        model = Member
+        fields = (
+            'id', 'email', 'first_name', 'last_name', 'post', 'department', 'leader', 'photo', 'slack', 'phone',
+            'nickname', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
+        depth = 9
+
+
+class UpdateMemberSerializer(ModelSerializer):
+    post = serializers.PrimaryKeyRelatedField(required=False, many=False,
+                                              read_only=False, queryset=Post.objects.all())
+    department = serializers.PrimaryKeyRelatedField(required=False, many=False,
+                                                    read_only=False,queryset=Department.objects.all())
+    leader = serializers.PrimaryKeyRelatedField(required=False,many=False,
+                                                read_only=False, queryset=Member.objects.all())
     photo = serializers.ImageField(allow_null=True, required=False)
 
     class Meta:
         model = Member
         fields = (
             'id', 'email', 'first_name', 'last_name', 'post', 'department', 'leader', 'photo', 'slack', 'phone',
-            'nickname', 'date_joined', 'is_active', 'is_staff')
+            'nickname', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
         extra_kwargs = {'password': {'write_only': True}}

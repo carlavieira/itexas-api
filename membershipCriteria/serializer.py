@@ -6,3 +6,4 @@ class MembershipCriteriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = MembershipCriteria
         fields = '__all__'
+        depth = 9
