@@ -13,6 +13,7 @@ class Meeting(models.Model):
     member = models.ForeignKey(Member, verbose_name='Responsável', on_delete=models.SET_NULL, null=True)
     date = models.DateField(verbose_name='Dia')
     time = models.TimeField(verbose_name='Hora')
+    engagement = models.DecimalField(verbose_name='Engajamento', max_digits=5, decimal_places=2, default=0)
 
     def __str__(self):
         return self.type + ' ' + str(self.date) + ' ' + str(self.time)
@@ -54,8 +55,19 @@ def updateMeetingParticipationCriteria(instance, **kwargs):
     print('Porcentagem: ' + str(criteria_to_update.meetingsCriteria))
     criteria_to_update.save()
 
+@receiver(post_save, sender=Meeting_Participation)
+def updateEngagement(instance, **kwargs):
+    meeting_to_update: Meeting = Meeting.objects.filter(id=instance.meeting_id).get();
+    present: int = Meeting_Participation.objects.filter(
+        meeting=meeting_to_update, attendance=True
+    ).count()
+    total: int = Meeting_Participation.objects.filter(
+        meeting=meeting_to_update
+    ).count()
+    meeting_to_update.engagement = (present / total) * 100
+    meeting_to_update.save()
+
 @receiver(post_save, sender=Meeting)
 def create_participation(sender, instance, created, **kwargs):
     if created:
         Meeting_Participation.objects.create(member=instance.member, meeting=instance, attendance=True);
-        print(str(instance.member.first_name));
