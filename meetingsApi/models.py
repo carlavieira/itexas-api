@@ -54,3 +54,8 @@ def updateMeetingParticipationCriteria(instance, **kwargs):
     print('Porcentagem: ' + str(criteria_to_update.meetingsCriteria))
     criteria_to_update.save()
 
+@receiver(post_save, sender=Meeting)
+def create_participation(sender, instance, created, **kwargs):
+    if created:
+        Meeting_Participation.objects.create(member=instance.member, meeting=instance, attendance=True);
+        print(str(instance.member.first_name));

@@ -22,7 +22,6 @@ class Event_Participation(models.Model):
 
 @receiver(post_save, sender=Event_Participation)
 def updateEventParticipationCriteria(instance, **kwargs):
-
     try:
         criteria_to_update: MembershipCriteria = MembershipCriteria.objects.filter(
             member_id=instance.member.id,
@@ -49,3 +48,9 @@ def updateEventParticipationCriteria(instance, **kwargs):
     print('Porcentagem: ' + str(criteria_to_update.eventsCriteria))
     criteria_to_update.save()
 
+
+@receiver(post_save, sender=Event)
+def create_participation(sender, instance, created, **kwargs):
+    if created:
+        for member in Member.objects.all().filter(is_active=True):
+            Event_Participation.objects.create(member=member, event=instance, attendance=False);
