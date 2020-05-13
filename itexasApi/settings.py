@@ -131,24 +131,24 @@ WSGI_APPLICATION = 'itexasApi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 # configurar mysql
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'itexas$itexasApi',
-#         'USER': 'itexas',
-#         'PASSWORD': 'f4e127cb6610d18',
-#         'HOST': 'itexas.mysql.pythonanywhere-services.com',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'itexas$itexasApi',
+        'USER': 'itexas',
+        'PASSWORD': 'f4e127cb6610d18',
+        'HOST': 'itexas.mysql.pythonanywhere-services.com',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -189,3 +189,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'itexas.pythonanywhere.com')
+
+
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_API_KEY = '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'
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SITE_ID = 3

@@ -27,7 +27,7 @@ def updateOfficeHourDuration(instance, **kwargs):
     post_save.connect(updateOfficeHourDuration, sender=OfficeHour)
     criteria_to_update = MembershipCriteria.objects.filter(
         member_id=instance.member.id,
-        firstDay_month__month=instance.checkin_time.month
+        dayMonth__month=instance.checkin_time.month
     ).get()
 
     all_office_hours = OfficeHour.objects.filter(
@@ -60,12 +60,13 @@ def updateOfficeHourDuration(instance, **kwargs):
 
     print(all_office_hours)
 
-    if all_office_hours >= timedelta(hours=20):
-        criteria_to_update.officeHoursCriteria = 100
-        criteria_to_update.save()
-    else:
-        criteria_to_update.officeHoursCriteria = (all_office_hours.seconds / 72000) * 100
-        criteria_to_update.save()
+    if all_office_hours:
+        if all_office_hours >= timedelta(hours=20):
+            criteria_to_update.officeHoursCriteria = 100
+            criteria_to_update.save()
+        else:
+            criteria_to_update.officeHoursCriteria = (all_office_hours.seconds / 72000) * 100
+            criteria_to_update.save()
 
 
 post_save.connect(updateOfficeHourDuration, sender=OfficeHour)

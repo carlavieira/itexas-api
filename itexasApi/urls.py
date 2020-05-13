@@ -19,6 +19,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
+from django.contrib.auth import views as auth_views
 
 from membersApi.views import MemberViewSet, UpdateMemberViewSet
 from departmentsApi.views import DepartmentViewSet
@@ -51,6 +52,14 @@ router.register(r'list-membership-criteria', MembershipCriteriaViewSet)
 
 
 urlpatterns = [
+    path('reset/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(template_name="password_reset_form.html"),
+         name="password_reset_confirm"),
+
+    path('reset_password_complete/',
+        auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_done.html"),
+        name="password_reset_complete"),
+
     path('', include(router.urls)),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),

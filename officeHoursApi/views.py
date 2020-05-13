@@ -13,5 +13,6 @@ class ListOfficeHourViewSet(viewsets.ModelViewSet):
 
 class ManageOfficeHourViewSet(viewsets.ModelViewSet):
     queryset = OfficeHour.objects.all()
-    serializer_class = ListOfficeHourSerializer
-
+    serializer_class = ManageOfficeHourSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = ('member', 'date')
