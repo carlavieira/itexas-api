@@ -31,6 +31,7 @@ django-cors-headers = "*"
 django-filter = "*"
 drf-writable-nested = "*"
 djangorestframework-serializer-extensions = "*"
+mysqlclient = "*"
 
 [requires]
 python_version = "3.6"

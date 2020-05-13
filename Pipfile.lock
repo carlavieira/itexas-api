@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e52d4a6aca1a2624d68657cb3629958ce7a9b6fe71d942758edc849c8cb15bda"
+            "sha256": "e27ff7130b513d476b9752a3084ab1d3453e788ace6c73c6befafcd226bae88f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -50,11 +50,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:642d8eceab321ca743ae71e0f985ff8fdca59f07aab3a9fb362c617d23e33a76",
-                "sha256:d4666c2edefa38c5ede0ec1655424c56dc47ceb04b6d8d62a7eac09db89545c1"
+                "sha256:051ba55d42daa3eeda3944a8e4df2bc96d4c62f94316dea217248a22563c3621",
+                "sha256:9aaa6a09678e1b8f0d98a948c56482eac3e3dd2ddbfb8de70a868135ef3b5e01"
             ],
             "index": "pypi",
-            "version": "==3.0.5"
+            "version": "==3.0.6"
         },
         "django-allauth": {
             "hashes": [
@@ -81,11 +81,11 @@
         },
         "django-mysql": {
             "hashes": [
-                "sha256:b92b2026df1cdc2e960d876f7f7facf0e0106c830e3663f597174b531b2b6dea",
-                "sha256:fe4693c4e001c49b62af463d196b6972f247cfe3841af5b0d5d35afe0e3fe9fb"
+                "sha256:60c7813c5694521ecf968c6e750e1314d4079c48cd181e0352e958b5f0bb44ba",
+                "sha256:c382dbe48372b868657431c9af16be2b9e72c42ea57e6e4c5a04b19fd0b4fd39"
             ],
             "index": "pypi",
-            "version": "==3.4.0"
+            "version": "==3.5.0"
         },
         "django-rest-auth": {
             "hashes": [
@@ -139,6 +139,16 @@
             ],
             "index": "pypi",
             "version": "==2.9"
+        },
+        "mysqlclient": {
+            "hashes": [
+                "sha256:4c82187dd6ab3607150fbb1fa5ef4643118f3da122b8ba31c3149ddd9cf0cb39",
+                "sha256:9e6080a7aee4cc6a06b58b59239f20f1d259c1d2fddf68ddeed242d2311c7087",
+                "sha256:f3fdaa9a38752a3b214a6fe79d7cae3653731a53e577821f9187e67cbecb2e16",
+                "sha256:f646f8d17d02be0872291f258cce3813497bc7888cd4712a577fd1e719b2f213"
+            ],
+            "index": "pypi",
+            "version": "==1.4.6"
         },
         "oauthlib": {
             "hashes": [

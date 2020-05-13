@@ -64,9 +64,8 @@ ACCOUNT_USER_EMAIL_FIELD = 'email'
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_VERIFICATION = None
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-AUTH_USER_MODEL = 'membersApi.Member'
 SITE_ID = 1
-# LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
+AUTH_USER_MODEL = 'membersApi.Member'
 ACCOUNT_ADAPTER = 'membersApi.adapter.CustomAccountAdapter'
 
 REST_AUTH_SERIALIZERS = {
@@ -131,24 +130,24 @@ WSGI_APPLICATION = 'itexasApi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # configurar mysql
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'itexas$itexasApi',
-        'USER': 'itexas',
-        'PASSWORD': 'f4e127cb6610d18',
-        'HOST': 'itexas.mysql.pythonanywhere-services.com',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'itexas$itexasApi',
+#         'USER': 'itexas',
+#         'PASSWORD': 'f4e127cb6610d18',
+#         'HOST': 'itexas.mysql.pythonanywhere-services.com',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -187,6 +186,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'itexas.pythonanywhere.com')
 
@@ -194,4 +196,4 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'itexas.pythonanywhere.com'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = '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'
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
-SITE_ID = 3
+SITE_ID = 2
