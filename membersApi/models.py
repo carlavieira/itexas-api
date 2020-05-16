@@ -16,9 +16,9 @@ class Member(AbstractUser):
     post = models.ForeignKey(Post, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Cargo')
     department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Área')
     leader = models.ForeignKey('self', blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Líder')
-    photo = models.ImageField(upload_to='static', blank=True)
-    slack = models.CharField(max_length=50, verbose_name='@Slack', blank=True)
-    phone = models.CharField(max_length=20, verbose_name='Celular', blank=True)
+    photo = models.ImageField(upload_to='static', blank=True, null=True)
+    slack = models.CharField(max_length=50, verbose_name='@Slack', blank=True, null=True)
+    phone = models.CharField(max_length=20, verbose_name='Celular', blank=True, null=True)
     nickname = models.CharField('nickname', max_length=30, blank=True, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']

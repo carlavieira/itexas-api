@@ -64,12 +64,13 @@ ACCOUNT_USER_EMAIL_FIELD = 'email'
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_VERIFICATION = None
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-SITE_ID = 1
+# SITE_ID = 1
 AUTH_USER_MODEL = 'membersApi.Member'
 ACCOUNT_ADAPTER = 'membersApi.adapter.CustomAccountAdapter'
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'membersApi.serializers.MemberSerializer',
+    'PASSWORD_RESET_SERIALIZER': 'membersApi.serializers.PasswordResetSerializer',
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
@@ -110,7 +111,7 @@ ROOT_URLCONF = 'itexasApi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'membersApi/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -192,8 +193,9 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'itexas.pythonanywhere.com')
 
-
-EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_API_KEY = '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'
-SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "daniellyncon@gmail.com"
+EMAIL_HOST_PASSWORD = 'aicylyrdhgdfyqkz'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 SITE_ID = 2
