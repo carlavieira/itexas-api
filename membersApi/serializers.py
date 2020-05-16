@@ -32,7 +32,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     slack = serializers.CharField(required=False, max_length=50, allow_null=True, allow_blank=True)
     phone = serializers.CharField(required=False, max_length=20, allow_null=True, allow_blank=True)
     nickname = serializers.CharField(required=False, max_length=30, allow_null=True, allow_blank=True)
-    photo = serializers.ImageField(required=False, allow_null=True, allow_blank=True)
+    photo = serializers.ImageField(required=False, allow_null=True)
     date_joined = serializers.DateTimeField(required=False, default=timezone.now())
 
     def get_cleaned_data(self):
