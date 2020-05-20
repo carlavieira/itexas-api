@@ -30,7 +30,7 @@ from meetingsApi.views import ListMeetingViewSet, ManageMeetingViewSet
 from meetingsApi.views import ListMeetingParticipationViewSet, ManageMeetingParticipationViewSet
 from eventsApi.views import ListEventViewSet, ManageEventViewSet
 from eventsApi.views import ListEventParticipationViewSet, ManageEventParticipationViewSet
-from membershipCriteria.views import MembershipCriteriaViewSet
+from membershipCriteria.views import MembershipCriteriaViewSet, LedMembershipCriteriaViewSet
 
 router = routers.DefaultRouter()
 router.register(r'list-members', MemberViewSet)
@@ -49,6 +49,7 @@ router.register(r'manage-event', ManageEventViewSet)
 router.register(r'list-event-participation', ListEventParticipationViewSet)
 router.register(r'manage-event-participation', ManageEventParticipationViewSet)
 router.register(r'list-membership-criteria', MembershipCriteriaViewSet)
+router.register(r'list-led-membership-criteria', LedMembershipCriteriaViewSet, basename='LedMembershipCriteriaViewSet')
 
 
 urlpatterns = [
