@@ -16,7 +16,7 @@ class ManageEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ['id', 'type', 'member', 'date', 'time', 'url']
+        fields = ['id', 'type', 'member', 'date', 'time', 'url', 'engagement']
 
 
 class ListEventParticipationSerializer(serializers.ModelSerializer):
