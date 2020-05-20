@@ -7,7 +7,7 @@ from .models import Event_Participation
 class ListEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['id', 'type', 'member', 'date', 'time', 'url']
+        fields = ['id', 'type', 'member', 'date', 'time', 'url', 'engagement']
         depth = 9
 
 

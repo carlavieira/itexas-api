@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
+from datetime import date
 
 from departmentsApi.models import Department
 from postsApi.models import Post
@@ -12,7 +12,7 @@ class Member(AbstractUser):
     email = models.EmailField(_('Email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
-    date_joined = models.DateField(_('date joined'), default=timezone.now)
+    date_joined = models.DateField(_('date joined'), default=date.today())
     post = models.ForeignKey(Post, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Cargo')
     department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Área')
     leader = models.ForeignKey('self', blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Líder')

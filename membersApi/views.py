@@ -8,10 +8,12 @@ class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
     filter_backends = [DjangoFilterBackend]
-    filter_fields = ('post', 'department', 'leader')
+    filter_fields = ('post', 'department', 'leader', 'is_active', 'is_staff', 'is_superuser')
 
 
 class UpdateMemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
     serializer_class = UpdateMemberSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = ('post', 'department', 'leader', 'is_active', 'is_staff', 'is_superuser')
 

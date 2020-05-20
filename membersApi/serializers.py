@@ -1,7 +1,8 @@
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
+from django.core.mail import send_mail
 from django.utils.translation import gettext as _
-
+from datetime import date
 from django.utils import timezone
 from rest_framework.serializers import ModelSerializer
 from departmentsApi.models import Department
@@ -9,6 +10,23 @@ from postsApi.models import Post
 from .models import Member
 from rest_framework import serializers
 from rest_auth.registration.serializers import RegisterSerializer
+import random
+import string
+import time
+
+
+def mkpass(size=16):
+    chars = []
+    chars.extend([i for i in string.ascii_letters])
+    chars.extend([i for i in string.digits])
+    # chars.extend([i for i in '\'"!@#$%&*()-_=+[{}]~^,<.>;:/?'])
+    passwd = ''
+    for i in range(size):
+        passwd += chars[random.randint(0, len(chars) - 1)]
+        random.seed = int(time.time())
+        random.shuffle(chars)
+
+    return passwd
 
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -18,9 +36,18 @@ class CustomRegisterSerializer(RegisterSerializer):
     def create(self, validated_data):
         super(CustomRegisterSerializer, self).create(validated_data)
 
+    def validate(self, data):
+        send_mail(
+            'Senha de acesso iTexas',  # aqui colocamos o assunto
+            'Aqui está sua senha de acesso: ' + data['password1'],  # aqui vai o corpo do email
+            'belohorizonte@aiesec.org.br',  # email que vai ser exibido teoricamente
+            [data['email'], ]
+        )
+        return data
+
     email = serializers.EmailField(required=True)
-    password1 = serializers.CharField(write_only=True)
-    password2 = serializers.CharField(required=False)
+    password1 = serializers.CharField(default=mkpass(16), required=False)
+    password2 = password1
     first_name = serializers.CharField(max_length=30)
     last_name = serializers.CharField(max_length=100)
     post = serializers.PrimaryKeyRelatedField(
@@ -33,7 +60,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     phone = serializers.CharField(required=False, max_length=20, allow_null=True, allow_blank=True)
     nickname = serializers.CharField(required=False, max_length=30, allow_null=True, allow_blank=True)
     photo = serializers.ImageField(required=False, allow_null=True)
-    date_joined = serializers.DateTimeField(required=False, default=timezone.now())
+    date_joined = serializers.DateField(required=False, default=date.today())
 
     def get_cleaned_data(self):
         super(CustomRegisterSerializer, self).get_cleaned_data()

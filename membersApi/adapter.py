@@ -1,9 +1,5 @@
 from allauth.account.adapter import DefaultAccountAdapter
 
-from departmentsApi.models import Department
-from membersApi.models import Member
-from postsApi.models import Post
-
 
 class CustomAccountAdapter(DefaultAccountAdapter):
 
