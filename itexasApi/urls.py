@@ -25,7 +25,7 @@ from membersApi.views import MemberViewSet, UpdateMemberViewSet
 from departmentsApi.views import DepartmentViewSet
 from postsApi.views import PostViewSet
 from officeHoursApi.views import ListOfficeHourViewSet, ManageOfficeHourViewSet
-from backgroundsApi.views import BackgroundViewSet
+from backgroundsApi.views import ListBackgroundViewSet, ManageBackgroundViewSet
 from meetingsApi.views import ListMeetingViewSet, ManageMeetingViewSet
 from meetingsApi.views import ListMeetingParticipationViewSet, ManageMeetingParticipationViewSet
 from eventsApi.views import ListEventViewSet, ManageEventViewSet
@@ -39,7 +39,8 @@ router.register(r'manage-departments', DepartmentViewSet)
 router.register(r'manage-posts', PostViewSet)
 router.register(r'list-office-hours', ListOfficeHourViewSet)
 router.register(r'manage-office-hours', ManageOfficeHourViewSet)
-router.register(r'list-backgrounds', BackgroundViewSet)
+router.register(r'list-backgrounds', ListBackgroundViewSet)
+router.register(r'manage-backgrounds', ManageBackgroundViewSet)
 router.register(r'list-meetings', ListMeetingViewSet)
 router.register(r'manage-meetings', ManageMeetingViewSet)
 router.register(r'list-meeting-participation', ListMeetingParticipationViewSet)
