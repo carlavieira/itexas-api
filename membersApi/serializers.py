@@ -51,16 +51,16 @@ class CustomRegisterSerializer(RegisterSerializer):
     first_name = serializers.CharField(max_length=30)
     last_name = serializers.CharField(max_length=100)
     post = serializers.PrimaryKeyRelatedField(
-        required=False, many=False, read_only=False, queryset=Post.objects.all())
+        required=False, many=False, read_only=False, queryset=Post.objects.all(), allow_null=True)
     department = serializers.PrimaryKeyRelatedField(
-        required=False, many=False, read_only=False, queryset=Department.objects.all())
+        required=False, many=False, read_only=False, queryset=Department.objects.all(), allow_null=True)
     leader = serializers.PrimaryKeyRelatedField(
-        required=False, many=False, read_only=False, queryset=Member.objects.all())
+        required=False, many=False, read_only=False, queryset=Member.objects.all(), allow_null=True)
     slack = serializers.CharField(required=False, max_length=50, allow_null=True, allow_blank=True)
     phone = serializers.CharField(required=False, max_length=20, allow_null=True, allow_blank=True)
     nickname = serializers.CharField(required=False, max_length=30, allow_null=True, allow_blank=True)
     photo = serializers.ImageField(required=False, allow_null=True)
-    date_joined = serializers.DateField(required=False, default=date.today())
+    date_joined = serializers.DateField(required=False, default=date.today(), allow_null=True)
 
     def get_cleaned_data(self):
         super(CustomRegisterSerializer, self).get_cleaned_data()
