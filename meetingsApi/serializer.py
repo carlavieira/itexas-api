@@ -11,6 +11,7 @@ class ListMeetingsSerializer(ModelSerializer):
         fields = ('id', 'type', 'member', 'date', 'time', 'engagement', 'url')
         depth = 3
 
+
 class ManageMeetingSerializer(ModelSerializer):
     member = serializers.PrimaryKeyRelatedField(read_only=False, required=True, queryset=Member.objects.all())
 
